@@ -1,0 +1,68 @@
+buildscript {
+	repositories {
+		jcenter()
+	}
+	dependencies {
+		classpath 'org.jruyi.gradle:thrift-gradle-plugin:0.2.0'
+	}
+}
+
+wrapper {
+	gradleVersion = '2.4'
+}
+
+allprojects {
+	group 'com.example'
+	version '0.1-SNAPSHOT'
+}
+
+subprojects {
+	apply plugin: 'java'
+
+	def javaVersion = 1.8
+	sourceCompatibility = javaVersion
+	targetCompatibility = javaVersion
+
+	repositories {
+		jcenter()
+	}
+}
+
+project(':comparator') {
+	apply plugin: 'application'
+
+	mainClassName = 'com.example.App'
+
+	dependencies {
+		compile project(':thrift'), project(':xml')
+		compile 'org.slf4j:slf4j-jcl:1.5.8'
+	}
+
+	jar {
+		from {
+			configurations.compile.collect {it.isDirectory() ? it : zipTree(it)}
+			configurations.runtime.collect {it.isDirectory() ? it : zipTree(it)}
+		}
+
+		manifest {
+			attributes(
+					'Main-Class': mainClassName,
+					'Implementation-Title': rootProject.name,
+					'Implementation-Version': version,
+					'Implementation-Vendor': 'barlog'
+			)
+		}
+	}
+}
+
+project(':thrift') {
+	apply plugin: 'org.jruyi.thrift'
+
+	dependencies {
+		compile 'org.apache.thrift:libthrift:0.9.2'
+	}
+}
+
+project(':xml') {
+
+}

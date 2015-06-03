@@ -1,0 +1,2 @@
+rootProject.name = 'serializators-size-comparing'
+include 'comparator', 'thrift', 'xml'
