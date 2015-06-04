@@ -14,6 +14,14 @@ apply plugin: 'idea'
 
 idea {
 	module {
-		sourceDirs += [file('src/main/thrift'), file("$buildDir/generated-sources/thrift/gen-java")]
+		sourceDirs += [file('src/main/thrift'), file("src/generated/thrift/gen-java")]
 	}
+}
+
+compileThrift {
+	outputDir = file('src/generated/thrift')
+}
+
+sourceSets {
+	main.java.srcDirs += 'src/generated/thrift/gen-java'
 }

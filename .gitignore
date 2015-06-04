@@ -2,3 +2,5 @@
 .gradle/
 /*.iml
 /build
+
+thrift/src/generated
