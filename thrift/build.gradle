@@ -1,0 +1,19 @@
+buildscript {
+	repositories {
+		jcenter()
+	}
+	dependencies {
+		classpath 'org.jruyi.gradle:thrift-gradle-plugin:0.2.0'
+	}
+}
+
+apply plugin: 'org.jruyi.thrift'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+idea {
+	module {
+		sourceDirs += [file('src/main/thrift'), file("$buildDir/generated-sources/thrift/gen-java")]
+	}
+}

@@ -1,2 +1,2 @@
-rootProject.name = 'serializators-size-comparing'
+rootProject.name = 'xml-size-comparing'
 include 'comparator', 'thrift', 'xml'
