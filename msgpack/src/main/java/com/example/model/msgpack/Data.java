@@ -1,21 +1,28 @@
-package com.example.model.xml;
+package com.example.model.msgpack;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import org.msgpack.annotation.Message;
+
 import java.util.ArrayList;
 import java.util.List;
 
-@XmlRootElement
+@Message
 public class Data {
 	private long timestamp;
 	private Version version;
 	private List<Record> records = new ArrayList<>();
 
+	public Data() {}
+
+	public Data(long timestamp, Version version, List<Record> records) {
+		this.timestamp = timestamp;
+		this.version = version;
+		this.records = records;
+	}
+
 	public long getTimestamp() {
 		return timestamp;
 	}
 
-	@XmlElement
 	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
 	}
@@ -24,7 +31,6 @@ public class Data {
 		return version;
 	}
 
-	@XmlElement
 	public void setVersion(Version version) {
 		this.version = version;
 	}
@@ -33,7 +39,6 @@ public class Data {
 		return records;
 	}
 
-	@XmlElement
 	public void setRecords(List<Record> records) {
 		this.records = records;
 	}

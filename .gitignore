@@ -1,6 +1,6 @@
 .idea/
 .gradle/
-/*.iml
+*.iml
 /build
 
 thrift/src/generated

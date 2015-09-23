@@ -5,13 +5,11 @@ import com.ibm.icu.util.ULocale;
 
 import java.util.Random;
 
-public class Generator {
+public class Converter {
 	private static final ULocale locale = new ULocale("ru_RU");
 	private static final RuleBasedNumberFormat rule = new RuleBasedNumberFormat(locale, RuleBasedNumberFormat.SPELLOUT);
-	private static final Random rnd = new Random();
-	private static final int MAX = 9999;
 
-	public static String getRandomString() {
-		return rule.format(rnd.nextInt(MAX));
+	public static String getText(int value) {
+		return rule.format(value);
 	}
 }

@@ -1,5 +1,5 @@
 package com.example.model.xml;
 
-public enum MessageType {
-	DATA
+public enum Type {
+	RECORD
 }

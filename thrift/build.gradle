@@ -3,7 +3,7 @@ buildscript {
 		jcenter()
 	}
 	dependencies {
-		classpath 'org.jruyi.gradle:thrift-gradle-plugin:0.2.0'
+		classpath 'org.jruyi.gradle:thrift-gradle-plugin:+'
 	}
 }
 

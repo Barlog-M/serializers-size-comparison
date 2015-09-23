@@ -1,2 +1,3 @@
 rootProject.name = 'xml-size-comparing'
-include 'comparator', 'thrift', 'xml'
+include ':comparator', ':thrift', ':xml', ':msgpack'
+
