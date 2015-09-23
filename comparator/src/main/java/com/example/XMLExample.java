@@ -21,7 +21,7 @@ public class XMLExample {
 
 		data.setTimestamp(Instant.now().getEpochSecond());
 		data.setVersion(version);
-		data.setMessages(new ArrayList<Message>(100));
+		data.setMessages(new ArrayList<Message>(1000));
 	}
 
 

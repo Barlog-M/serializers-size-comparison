@@ -7,6 +7,7 @@ import com.example.model.thrift.MessageType;
 import org.apache.thrift.TException;
 import org.apache.thrift.TSerializer;
 import org.apache.thrift.protocol.TBinaryProtocol;
+import org.apache.thrift.protocol.TCompactProtocol;
 
 import java.io.ByteArrayOutputStream;
 import java.time.Instant;
@@ -23,7 +24,7 @@ public class ThriftExample {
 		data.setTimestamp(Instant.now().getEpochSecond());
 		data.setVersion(version);
 
-		data.setMessages(new ArrayList<Message>(100));
+		data.setMessages(new ArrayList<Message>(1000));
 	}
 
 	public static void addData(String header, String value) {
@@ -36,7 +37,7 @@ public class ThriftExample {
 	}
 
 	public static void calc() {
-		TSerializer serializer = new TSerializer(new TBinaryProtocol.Factory());
+		TSerializer serializer = new TSerializer(new TCompactProtocol.Factory());
 		byte[] bytes = null;
 		try {
 			bytes = serializer.serialize(data);
