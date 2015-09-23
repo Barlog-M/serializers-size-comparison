@@ -2,7 +2,7 @@ package com.example;
 
 public final class App {
 	public static void main(String... args) {
-		for(int i=0; i<=99; i++) {
+		for(int i=0; i<=9999; i++) {
 			String header = Generator.getRandomString();
 			String value = Generator.getRandomString();
 
