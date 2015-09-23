@@ -15,35 +15,29 @@ import java.util.zip.Deflater;
 import java.util.zip.DeflaterOutputStream;
 
 public class ThriftExample {
-	public static void calc() {
+	private static final Data data = new Data();
+
+	static {
 		Version version = new Version();
 
-		Data data = new Data();
 		data.setTimestamp(Instant.now().getEpochSecond());
 		data.setVersion(version);
 
-		Message m1 = new Message();
-		m1.setType(MessageType.DATA);
-		m1.setHeader("Длинный заголовок сообщения номер один");
-		m1.setValue("Само сообщение для длинного заголовка номер один");
+		data.setMessages(new ArrayList<Message>(100));
+	}
 
-		Message m2 = new Message();
-		m1.setType(MessageType.DATA);
-		m1.setHeader("Длинный заголовок сообщения номер два");
-		m1.setValue("Само сообщение для длинного заголовка номер два");
+	public static void addData(String header, String value) {
+		Message m = new Message();
+		m.setType(MessageType.DATA);
+		m.setHeader(header);
+		m.setValue(value);
 
-		Message m3 = new Message();
-		m1.setType(MessageType.DATA);
-		m1.setHeader("Длинный заголовок сообщения номер три");
-		m1.setValue("Само сообщение для длинного заголовка номер три");
+		data.getMessages().add(m);
+	}
 
-		data.setMessages(new ArrayList<Message>(3));
-		data.getMessages().add(m1);
-		data.getMessages().add(m2);
-		data.getMessages().add(m3);
-
+	public static void calc() {
 		TSerializer serializer = new TSerializer(new TBinaryProtocol.Factory());
-		byte[] bytes = new byte[0];
+		byte[] bytes = null;
 		try {
 			bytes = serializer.serialize(data);
 			System.out.println("thrift unpacked: " + bytes.length);

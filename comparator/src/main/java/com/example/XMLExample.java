@@ -9,36 +9,32 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import java.io.ByteArrayOutputStream;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.zip.Deflater;
 import java.util.zip.DeflaterOutputStream;
 
 public class XMLExample {
-	public static void calc() {
+	private static final Data data = new Data();
+
+	static {
 		Version version = new Version();
 
-		Data data = new Data();
 		data.setTimestamp(Instant.now().getEpochSecond());
 		data.setVersion(version);
+		data.setMessages(new ArrayList<Message>(100));
+	}
 
-		Message m1 = new Message();
-		m1.setType(MessageType.DATA);
-		m1.setHeader("Длинный заголовок сообщения номер один");
-		m1.setValue("Само сообщение для длинного заголовка номер один");
 
-		Message m2 = new Message();
-		m1.setType(MessageType.DATA);
-		m1.setHeader("Длинный заголовок сообщения номер два");
-		m1.setValue("Само сообщение для длинного заголовка номер два");
+	public static void addData(String header, String value) {
+		Message m = new Message();
+		m.setType(MessageType.DATA);
+		m.setHeader(header);
+		m.setValue(value);
 
-		Message m3 = new Message();
-		m1.setType(MessageType.DATA);
-		m1.setHeader("Длинный заголовок сообщения номер три");
-		m1.setValue("Само сообщение для длинного заголовка номер три");
+		data.getMessages().add(m);
+	}
 
-		data.getMessages().add(m1);
-		data.getMessages().add(m2);
-		data.getMessages().add(m3);
-
+	public static void calc() {
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(Data.class);
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
