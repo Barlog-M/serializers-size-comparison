@@ -24,7 +24,7 @@ public class ThriftExample {
 		data.setTimestamp(Instant.now().getEpochSecond());
 		data.setVersion(version);
 
-		data.setMessages(new ArrayList<Message>(1000));
+		data.setMessages(new ArrayList<Message>(App.RECORDS_COUNT));
 	}
 
 	public static void addData(String header, String value) {
