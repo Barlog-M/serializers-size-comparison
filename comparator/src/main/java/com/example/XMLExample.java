@@ -12,6 +12,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.function.Function;
 
 public class XMLExample {
 	private static final Data data = new Data();
@@ -35,7 +36,7 @@ public class XMLExample {
 		data.getRecords().add(m);
 	}
 
-	public static void calc() {
+	public static void calc(Function<byte[], byte[]> fn) {
 		try (ByteArrayOutputStream os = new ByteArrayOutputStream()) {
 			JAXBContext jaxbContext = JAXBContext.newInstance(Data.class);
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
@@ -43,10 +44,10 @@ public class XMLExample {
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			jaxbMarshaller.marshal(data, os);
 
-			System.out.println("xml unpacked: " + os.toByteArray().length);
+			System.out.println("\tunpacked: " + os.toByteArray().length);
 
-			byte[] deflated = App.deflate(os.toByteArray());
-			System.out.println("xml deflated: " + deflated.length);
+			byte[] packed = fn.apply(os.toByteArray());
+			System.out.println("\tpacked: " + packed.length);
 		} catch (JAXBException | IOException e) {
 			e.printStackTrace();
 		}

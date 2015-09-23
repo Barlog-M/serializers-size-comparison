@@ -1,8 +1,15 @@
 package com.example;
 
+import org.tukaani.xz.FilterOptions;
+import org.tukaani.xz.LZMA2Options;
+import org.tukaani.xz.XZOutputStream;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Random;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.zip.Deflater;
 import java.util.zip.DeflaterOutputStream;
 
@@ -22,22 +29,52 @@ public final class App {
 			MsgPackExample.addData(value, message, description);
 		}
 
-		XMLExample.calc();
-		ThriftExample.calc();
-		MsgPackExample.calc();
+		System.out.println("XML deflate:");
+		XMLExample.calc(deflate);
+
+		System.out.println("XML xz:");
+		XMLExample.calc(xz);
+
+		System.out.println("Thrift deflate:");
+		ThriftExample.calc(deflate);
+
+		System.out.println("Thrift xz:");
+		ThriftExample.calc(xz);
+
+		System.out.println("MessagePack deflate:");
+		MsgPackExample.calc(deflate);
+
+		System.out.println("MessagePack xz:");
+		MsgPackExample.calc(xz);
 	}
 
-	public static byte[] deflate(byte[] data) {
+	private static final Function<byte[], byte[]> deflate = (data) -> {
 		byte[] result = null;
 		try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
-			DeflaterOutputStream deflaterOutputStream = new DeflaterOutputStream(byteArrayOutputStream, new Deflater(Deflater.BEST_COMPRESSION));
-			deflaterOutputStream.write(data, 0, data.length);
-			deflaterOutputStream.flush();
-			deflaterOutputStream.close();
+			OutputStream outputStream = new DeflaterOutputStream(byteArrayOutputStream, new Deflater(Deflater.BEST_COMPRESSION));
+			outputStream.write(data, 0, data.length);
+			outputStream.flush();
+			outputStream.close();
 			result = byteArrayOutputStream.toByteArray();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return result;
-	}
+	};
+
+	private static final Function<byte[], byte[]> xz = (data) -> {
+		byte[] result = null;
+		try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
+			LZMA2Options options = new LZMA2Options();
+			//options.setPreset(9);
+			OutputStream outputStream = new XZOutputStream(byteArrayOutputStream, options);
+			outputStream.write(data, 0, data.length);
+			outputStream.flush();
+			outputStream.close();
+			result = byteArrayOutputStream.toByteArray();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
+	};
 }

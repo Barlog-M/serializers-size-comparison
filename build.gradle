@@ -21,8 +21,9 @@ project(':comparator') {
 
 	dependencies {
 		compile project(':thrift'), project(':xml'), project(':msgpack')
-		compile 'com.ibm.icu:icu4j:55.1'
-		compile 'org.slf4j:slf4j-jcl:1.5.8'
+		compile 'com.ibm.icu:icu4j:+'
+		compile 'org.slf4j:slf4j-jcl:+'
+		compile 'org.tukaani:xz:+'
 	}
 
 	jar {
@@ -44,7 +45,11 @@ project(':comparator') {
 
 project(':thrift') {
 	dependencies {
-		compile 'org.apache.thrift:libthrift:+'
+		compile('org.apache.thrift:libthrift:+') {
+			exclude group: 'org.apache.httpcomponents'
+			exclude group: 'org.slf4j', module: 'slf4j-api'
+		}
+		compile 'org.slf4j:slf4j-api:+'
 	}
 }
 
@@ -59,6 +64,6 @@ project(':msgpack') {
 }
 
 wrapper {
-	gradleVersion = '2.6'
+	gradleVersion = '2.7'
 }
 

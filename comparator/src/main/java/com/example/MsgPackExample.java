@@ -9,6 +9,7 @@ import org.msgpack.MessagePack;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.function.Function;
 
 public class MsgPackExample {
 	private static final Data data = new Data();
@@ -33,14 +34,14 @@ public class MsgPackExample {
 		data.getRecords().add(m);
 	}
 
-	public static void calc() {
+	public static void calc(Function<byte[], byte[]> fn) {
 		try {
 			byte[] result = msgpack.write(data);
 
-			System.out.println("MessagePack unpacked: " + result.length);
+			System.out.println("\tunpacked: " + result.length);
 
-			byte[] deflated = App.deflate(result);
-			System.out.println("MessagePack deflated: " + deflated.length);
+			byte[] packed = fn.apply(result);
+			System.out.println("\tpacked: " + packed.length);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

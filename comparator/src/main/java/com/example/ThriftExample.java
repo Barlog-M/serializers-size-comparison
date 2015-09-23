@@ -10,6 +10,7 @@ import org.apache.thrift.protocol.TCompactProtocol;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.function.Function;
 
 public class ThriftExample {
 	private static final Data data = new Data();
@@ -33,23 +34,17 @@ public class ThriftExample {
 		data.getRecords().add(m);
 	}
 
-	public static void calc() {
+	public static void calc(Function<byte[], byte[]> fn) {
 		TSerializer serializer = new TSerializer(new TCompactProtocol.Factory());
 		byte[] result = null;
 		try {
 			result = serializer.serialize(data);
-			System.out.println("thrift unpacked: " + result.length);
+			System.out.println("\tunpacked: " + result.length);
 		} catch (TException e) {
 			e.printStackTrace();
 		}
 
-		byte[] deflated = App.deflate(result);
-		System.out.println("thrift deflated: " + deflated.length);
-
-/*
-		TDeserializer deserializer = new TDeserializer(new TBinaryProtocol.Factory());
-		Data moreWork = new Data();
-		deserializer.deserialize(moreWork, result);
-*/
+		byte[] packed = fn.apply(result);
+		System.out.println("\tpacked: " + packed.length);
 	}
 }
