@@ -27,6 +27,7 @@ public final class App {
 			XMLExample.addData(value, message, description);
 			ThriftExample.addData(value, message, description);
 			MsgPackExample.addData(value, message, description);
+			ProtobufExample.addData(value, message, description);
 		}
 
 		System.out.println("XML deflate:");
@@ -46,6 +47,12 @@ public final class App {
 
 		System.out.println("MessagePack xz:");
 		MsgPackExample.calc(xz);
+
+		System.out.println("Protobuf deflate:");
+		ProtobufExample.calc(deflate);
+
+		System.out.println("Protobuf xz:");
+		ProtobufExample.calc(xz);
 	}
 
 	private static final Function<byte[], byte[]> deflate = (data) -> {

@@ -1,3 +1,6 @@
 rootProject.name = 'serializers-size-comparison'
-include ':comparator', ':thrift', ':xml', ':msgpack'
-
+include ':xml'
+include ':thrift'
+include ':msgpack'
+include ':protobuf'
+include ':comparator'

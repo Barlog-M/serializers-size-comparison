@@ -1,0 +1,39 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'com.google.protobuf:protobuf-gradle-plugin:0.7.0'
+	}
+}
+
+apply plugin: 'com.google.protobuf'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+/*
+idea {
+	module {
+		sourceDirs += [file('src/main/protobuf'), file("src/generated/main/java")]
+	}
+}
+*/
+
+protobuf {
+	generatedFilesBaseDir = "$projectDir/src/generated"
+	protoc {
+		artifact = 'com.google.protobuf:protoc:3.0.0-beta-1'
+	}
+}
+
+sourceSets {
+	main {
+		proto {
+			srcDir 'src/main/protobuf'
+		}
+		java {
+			srcDirs 'src/generated/main/java'
+		}
+	}
+}

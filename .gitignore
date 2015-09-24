@@ -3,4 +3,4 @@
 *.iml
 build
 
-thrift/src/generated
+*/src/generated
