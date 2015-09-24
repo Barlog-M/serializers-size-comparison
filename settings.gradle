@@ -1,3 +1,3 @@
-rootProject.name = 'serializators-size-comparing'
+rootProject.name = 'serializers-size-comparison'
 include ':comparator', ':thrift', ':xml', ':msgpack'
 
