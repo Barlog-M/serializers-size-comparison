@@ -1,7 +1,12 @@
-Thrift vs JAXB
+Serializers Size Comparison
 =====================
 
-Simple compare Thirft and JAXB by size of serialized data.
+[JAXB](https://en.wikipedia.org/wiki/Java_Architecture_for_XML_Binding)
+[Thrift](https://thrift.apache.org)
+[MessagePack](http://msgpack.org)
+
+[Deflater](http://docs.oracle.com/javase/8/docs/api/java/util/zip/Deflater.html)
+[XZ](http://tukaani.org/xz/java.html)
 
 ### Run ###
 ```
