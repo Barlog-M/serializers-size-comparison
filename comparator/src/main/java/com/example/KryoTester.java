@@ -1,21 +1,23 @@
 package com.example;
 
-import com.example.model.msgpack.Data;
-import com.example.model.msgpack.Record;
-import com.example.model.msgpack.Type;
-import com.example.model.msgpack.Version;
+import com.example.model.kryo.Data;
+import com.example.model.kryo.Record;
+import com.example.model.kryo.Type;
+import com.example.model.kryo.Version;
 
-import org.msgpack.MessagePack;
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.io.Output;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
 
-public class MsgPackTester extends AbstractTester {
+public class KryoTester extends AbstractTester {
 	private final Data data;
 
-	public MsgPackTester() {
-		name = "MessagePack";
+	public KryoTester() {
+		name = "Kryo";
 		data = new Data();
 
 		final Version version = new Version();
@@ -38,9 +40,15 @@ public class MsgPackTester extends AbstractTester {
 
 	@Override
 	public void serialize() {
-		final MessagePack msgpack = new MessagePack();
-		try {
-			serialized = msgpack.write(data);
+		final Kryo kryo = new Kryo();
+
+		try (
+			ByteArrayOutputStream os = new ByteArrayOutputStream();
+			Output output = new Output(os);
+		) {
+			kryo.writeObject(output, data);
+			output.flush();
+			serialized = os.toByteArray();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

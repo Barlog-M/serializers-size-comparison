@@ -14,7 +14,9 @@ public final class App {
 			new XMLTester(),
 			new ThriftTester(),
 			new MsgPackTester(),
-			new ProtobufTester());
+			new ProtobufTester(),
+			new KryoTester()
+		);
 
 		generateData(testers);
 

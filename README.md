@@ -6,6 +6,7 @@ Serializers Size Comparison
 * [Thrift](https://thrift.apache.org)
 * [MessagePack](http://msgpack.org)
 * [Protocol Buffer](https://developers.google.com/protocol-buffers)
+* [Kryo](https://github.com/EsotericSoftware/kryo)
 
 ### Packers
 * [Deflater](http://docs.oracle.com/javase/8/docs/api/java/util/zip/Deflater.html)

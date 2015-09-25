@@ -8,7 +8,6 @@ import com.example.model.protobuf.DTO.Version;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 
 public class ProtobufTester extends AbstractTester {
 	private final List<Record> records;

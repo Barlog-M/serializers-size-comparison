@@ -20,7 +20,11 @@ project(':comparator') {
 	mainClassName = 'com.example.App'
 
 	dependencies {
-		compile project(':thrift'), project(':xml'), project(':msgpack'), project(':protobuf')
+		compile project(':thrift')
+		compile project(':xml')
+		compile project(':msgpack')
+		compile project(':protobuf')
+		compile project(':kryo')
 		compile 'com.ibm.icu:icu4j:+'
 		compile 'org.slf4j:slf4j-jcl:+'
 		compile 'org.tukaani:xz:+'
@@ -66,6 +70,12 @@ project(':msgpack') {
 project(':protobuf') {
 	dependencies {
 		compile 'com.google.protobuf:protobuf-java:+'
+	}
+}
+
+project(':kryo') {
+	dependencies {
+		compile 'com.esotericsoftware:kryo:+'
 	}
 }
 

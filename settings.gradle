@@ -4,3 +4,5 @@ include ':thrift'
 include ':msgpack'
 include ':protobuf'
 include ':comparator'
+include ':kryo'
+

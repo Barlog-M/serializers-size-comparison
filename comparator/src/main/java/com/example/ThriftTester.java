@@ -4,13 +4,13 @@ import com.example.model.thrift.Data;
 import com.example.model.thrift.Version;
 import com.example.model.thrift.Record;
 import com.example.model.thrift.Type;
+
 import org.apache.thrift.TException;
 import org.apache.thrift.TSerializer;
 import org.apache.thrift.protocol.TCompactProtocol;
 
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.function.Function;
 
 public class ThriftTester extends AbstractTester {
 	private final Data data;

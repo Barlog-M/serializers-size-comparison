@@ -8,11 +8,11 @@ import com.example.model.xml.Version;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.function.Function;
 
 public class XMLTester extends AbstractTester {
 	private final Data data;
