@@ -20,7 +20,7 @@ public final class App {
 
 		testers.forEach(t -> t.serialize());
 		testers.forEach(t -> t.pack(Packers.deflate, "deflate"));
-		testers.forEach(t -> t.pack(Packers.xz, "xz"));
+		testers.forEach(t -> t.pack(Packers.xz, "XZ"));
 	}
 
 	private static void generateData(List<Tester> testers) {
