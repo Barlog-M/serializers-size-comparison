@@ -1,0 +1,18 @@
+plugins {
+	id 'com.commercehub.gradle.plugin.avro' version '0.5.0'
+}
+apply plugin: 'com.commercehub.gradle.plugin.avro'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+idea {
+	module {
+		sourceDirs += [file('src/main/avro'), file('src/generated')]
+	}
+}
+
+sourceSets {
+	main.java.srcDirs += 'src/generated'
+}
+

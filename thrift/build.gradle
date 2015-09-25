@@ -14,7 +14,7 @@ apply plugin: 'idea'
 
 idea {
 	module {
-		sourceDirs += [file('src/main/thrift'), file("src/generated/thrift/gen-java")]
+		sourceDirs += [file('src/main/thrift'), file('src/generated/thrift/gen-java')]
 	}
 }
 

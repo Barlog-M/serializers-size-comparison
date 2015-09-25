@@ -1,0 +1,38 @@
+{
+	"namespace": "com.example.model.avro",
+	"protocol": "Dummy",
+	"types": [
+		{
+			"type": "record",
+			"name": "Version",
+			"fields": [
+				{"name": "major", "type": "int"},
+				{"name": "minor", "type": "int"}
+			]
+		},
+		{
+			"type": "enum",
+			"name": "Type",
+			"symbols" : ["RECORD"]
+		},
+		{
+			"type": "record",
+			"name": "Record",
+			"fields": [
+				{"name": "type", "type": "Type"},
+				{"name": "value", "type": "int"},
+				{"name": "message", "type": "string"},
+				{"name": "description", "type": "string"}
+			]
+		},
+		{
+			"type": "record",
+			"name": "Data",
+			"fields": [
+				{"name": "timestamp", "type": "long"},
+				{"name": "version", "type": "Version"},
+				{"name": "records", "type": {"type": "array", "items": "Record"}}
+			]
+		}
+	]
+}

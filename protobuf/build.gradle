@@ -10,15 +10,6 @@ buildscript {
 apply plugin: 'com.google.protobuf'
 
 apply plugin: 'java'
-apply plugin: 'idea'
-
-/*
-idea {
-	module {
-		sourceDirs += [file('src/main/protobuf'), file("src/generated/main/java")]
-	}
-}
-*/
 
 protobuf {
 	generatedFilesBaseDir = "$projectDir/src/generated"

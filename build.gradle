@@ -25,6 +25,7 @@ project(':comparator') {
 		compile project(':msgpack')
 		compile project(':protobuf')
 		compile project(':kryo')
+		compile project(':avro')
 		compile 'com.ibm.icu:icu4j:+'
 		compile 'org.slf4j:slf4j-jcl:+'
 		compile 'org.tukaani:xz:+'
@@ -58,7 +59,6 @@ project(':thrift') {
 }
 
 project(':xml') {
-
 }
 
 project(':msgpack') {
@@ -76,6 +76,13 @@ project(':protobuf') {
 project(':kryo') {
 	dependencies {
 		compile 'com.esotericsoftware:kryo:+'
+	}
+}
+
+project(':avro') {
+	dependencies {
+		compile 'org.apache.avro:avro:+'
+//		compile 'org.apache.avro:avro-ipc:+'
 	}
 }
 

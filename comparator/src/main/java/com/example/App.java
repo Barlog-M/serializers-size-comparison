@@ -13,9 +13,11 @@ public final class App {
 		final List<Tester> testers = Arrays.asList(
 			new XMLTester(),
 			new ThriftTester(),
+			new ThriftJSONTester(),
 			new MsgPackTester(),
 			new ProtobufTester(),
-			new KryoTester()
+			new KryoTester(),
+			new AvroTester()
 		);
 
 		generateData(testers);
