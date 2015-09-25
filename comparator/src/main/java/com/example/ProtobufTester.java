@@ -10,16 +10,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-public class ProtobufExample {
-	private static final List<Record> records = new ArrayList<>(App.RECORDS_COUNT);
-	private static final Version version;
-	private static Data data;
+public class ProtobufTester extends AbstractTester {
+	private final List<Record> records;
+	private final Version version;
+	private Data data;
 
-	static {
+	public ProtobufTester() {
+		name = "Protobuf";
+
+		records = new ArrayList<>(App.RECORDS_COUNT);
 		version = Version.newBuilder().setMajor(0).setMinor(1).build();
 	}
 
-	public static void addData(int value, String message, String description) {
+	@Override
+	public void addData(int value, String message, String description) {
 		Record record = Record.newBuilder()
 			.setType(Type.RECORD)
 			.setValue(value)
@@ -30,17 +34,14 @@ public class ProtobufExample {
 		records.add(record);
 	}
 
-	public static void calc(Function<byte[], byte[]> fn) {
-		fillData();
-
-		byte[] result = data.toByteArray();
-		System.out.println("\tunpacked: " + result.length);
-
-		byte[] packed = fn.apply(result);
-		System.out.println("\tpacked: " + packed.length);
+	@Override
+	public void serialize() {
+		serialized = data.toByteArray();
+		printUnpackedResult();
 	}
 
-	public static void fillData() {
+	@Override
+	public void initialize() {
 		Data.Builder builder = Data.newBuilder();
 		records.forEach(builder::addRecords);
 		builder.setVersion(version);

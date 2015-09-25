@@ -11,20 +11,22 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.function.Function;
 
-public class MsgPackExample {
-	private static final Data data = new Data();
-	private static final MessagePack msgpack = new MessagePack();
+public class MsgPackTester extends AbstractTester {
+	private final Data data;
 
-	static {
-		Version version = new Version();
+	public MsgPackTester() {
+		name = "MessagePack";
+		data = new Data();
+
+		final Version version = new Version();
 
 		data.setTimestamp(Instant.now().getEpochSecond());
 		data.setVersion(version);
 		data.setRecords(new ArrayList<Record>(App.RECORDS_COUNT));
 	}
 
-
-	public static void addData(int value, String message, String description) {
+	@Override
+	public void addData(int value, String message, String description) {
 		Record m = new Record();
 		m.setType(Type.RECORD);
 		m.setValue(value);
@@ -34,16 +36,14 @@ public class MsgPackExample {
 		data.getRecords().add(m);
 	}
 
-	public static void calc(Function<byte[], byte[]> fn) {
+	@Override
+	public void serialize() {
+		final MessagePack msgpack = new MessagePack();
 		try {
-			byte[] result = msgpack.write(data);
-
-			System.out.println("\tunpacked: " + result.length);
-
-			byte[] packed = fn.apply(result);
-			System.out.println("\tpacked: " + packed.length);
+			serialized = msgpack.write(data);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		printUnpackedResult();
 	}
 }
